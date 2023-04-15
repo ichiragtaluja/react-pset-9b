@@ -7,6 +7,7 @@ export const DataContext = createContext();
 
 export function DataProvider({ children }) {
   const [books, setBooks] = useState([]);
+  const [user, setUser] = useState({});
 
   const navigate = useNavigate();
 
@@ -37,6 +38,7 @@ export function DataProvider({ children }) {
       const response = await fakeFetch("https://example.com/api/books");
       if (response.status === 200) {
         setBooks(response.data.books);
+        setUser(response.data.user);
       }
     } catch (error) {}
   };
@@ -52,6 +54,7 @@ export function DataProvider({ children }) {
         addToFavouriteHandler,
         markAsReadHandler,
         favouritesTotal,
+        user,
       }}
     >
       {children}
