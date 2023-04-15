@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { DataContext } from "../context/DataProvider";
 
 export function Favourites() {
-  const { books } = useContext(DataContext);
+  const { books, markAsReadHandler, addToFavouriteHandler } =
+    useContext(DataContext);
   return (
     <div>
       <h1>Favourites</h1>
@@ -30,8 +31,17 @@ export function Favourites() {
               <p>
                 <small>Author: {author}</small>
               </p>
-              <button>Buy now</button>
-              <button>Remove from fav</button>
+              <button disabled={read} onClick={() => markAsReadHandler(id)}>
+                {!read ? "Mark as read" : "Already Read"}
+              </button>{" "}
+              <button
+                disabled={favourites}
+                onClick={() => {
+                  addToFavouriteHandler(id);
+                }}
+              >
+                {!favourites ? "Add to favourite" : "Go to fav"}
+              </button>
             </div>
           )
       )}
